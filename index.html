@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benjamin Gyimah — Ruficent</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --white: #f4efe6;
+    --gold: #c9a84c;
+    --gold-dim: rgba(201,168,76,0.15);
+    --red: #b83228;
+    --blue: #1a3a6b;
+    --cream: #e8e0d0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+  }
+
+  /* ── TRIANGLE CANVAS BG ── */
+  #tri-canvas {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none; opacity: 0.35;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 3rem; height: 64px;
+    background: rgba(8,8,8,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--gold-dim);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: 0.22em; color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(244,239,230,0.6); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--white); transition: all 0.3s;
+  }
+  .mobile-menu {
+    display: none; position: fixed; top: 64px; left: 0; right: 0;
+    background: rgba(8,8,8,0.97); z-index: 199;
+    flex-direction: column; padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--gold-dim);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(244,239,230,0.7); text-decoration: none;
+    padding: 0.85rem 0; border-bottom: 1px solid rgba(201,168,76,0.08);
+    transition: color 0.2s;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--gold); }
+
+  /* ── SHARED ── */
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .section-label::before {
+    content: ''; display: inline-block;
+    width: 1.8rem; height: 1px; background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    line-height: 1; letter-spacing: 0.05em;
+    color: var(--white); margin-bottom: 1.5rem;
+  }
+  section { position: relative; z-index: 1; }
+  .divider { border: none; height: 1px; background: var(--gold-dim); margin: 0; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh; padding: 80px 3rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 4rem;
+  }
+  .hero-text {}
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .hero-eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--gold); }
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.8rem, 7.5vw, 8rem);
+    line-height: 0.88; letter-spacing: 0.04em; margin-bottom: 0.6rem;
+  }
+  .hero-name span { color: var(--gold); display: block; }
+  .hero-technique {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    letter-spacing: 0.3em; color: var(--red); margin-bottom: 2rem;
+  }
+  .hero-bio {
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.85; font-style: italic; font-weight: 300;
+    color: rgba(244,239,230,0.72); max-width: 460px; margin-bottom: 2.2rem;
+  }
+  .hero-stats {
+    display: flex; gap: 2.5rem; flex-wrap: wrap;
+  }
+  .hero-stat {}
+  .hero-stat .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem; color: var(--gold); line-height: 1;
+  }
+  .hero-stat .lbl {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(244,239,230,0.4);
+  }
+
+  .hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+  .hero-photo-wrap {
+    position: relative; width: 100%; max-width: 440px;
+  }
+  .hero-photo-wrap::before {
+    content: ''; position: absolute;
+    top: -14px; left: -14px; right: 14px; bottom: 14px;
+    border: 1px solid rgba(201,168,76,0.3); z-index: 0;
+  }
+  .hero-photo-wrap::after {
+    content: ''; position: absolute;
+    bottom: -20px; right: -20px;
+    width: 55%; height: 55%;
+    background: var(--red); opacity: 0.07; z-index: 0;
+  }
+  .hero-photo-wrap img {
+    position: relative; z-index: 1;
+    width: 100%; display: block;
+    filter: contrast(1.04) saturate(0.9);
+  }
+  .hero-photo-label {
+    position: absolute; bottom: -36px; left: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.2em;
+    color: rgba(244,239,230,0.35); text-transform: uppercase;
+  }
+
+  /* ── RUFICENT ── */
+  #ruficent {
+    padding: 7rem 3rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .ruficent-def {
+    padding: 1.8rem 2rem;
+    border-left: 3px solid var(--gold);
+    background: rgba(201,168,76,0.04);
+    margin-bottom: 2rem;
+  }
+  .ruficent-def .def-word {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; color: var(--gold); letter-spacing: 0.08em;
+    display: block; margin-bottom: 0.5rem;
+  }
+  .ruficent-def p {
+    font-size: 1rem; line-height: 1.75;
+    color: rgba(244,239,230,0.65);
+  }
+  .ruficent-breakdown {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: var(--gold-dim);
+    border: 1px solid var(--gold-dim); margin-bottom: 2rem;
+  }
+  .rb-item {
+    background: var(--black);
+    padding: 1.4rem 1rem; text-align: center;
+  }
+  .rb-letters {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem; color: var(--gold); display: block;
+  }
+  .rb-word {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.2em;
+    color: rgba(244,239,230,0.4); text-transform: uppercase;
+  }
+  .ruficent-text {
+    font-size: 1rem; line-height: 1.85;
+    color: rgba(244,239,230,0.65);
+  }
+
+  .tech-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--gold-dim);
+    border: 1px solid var(--gold-dim);
+  }
+  .tc {
+    background: var(--black); padding: 1.8rem 1.5rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .tc:hover { background: rgba(201,168,76,0.04); }
+  .tc::after {
+    content: ''; position: absolute; top: 0; right: 0;
+    border-width: 0 28px 28px 0; border-style: solid;
+    border-color: transparent rgba(201,168,76,0.3) transparent transparent;
+  }
+  .tc h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem; letter-spacing: 0.1em;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .tc p { font-size: 0.88rem; line-height: 1.65; color: rgba(244,239,230,0.55); }
+
+  /* ── GALLERY ── */
+  #works { padding: 7rem 3rem; }
+  .works-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .works-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.15em;
+    color: rgba(244,239,230,0.35); text-align: right;
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+  }
+  .artwork {
+    position: relative; overflow: hidden;
+    background: #111; cursor: pointer;
+  }
+  .artwork:first-child { grid-row: span 2; }
+  .artwork img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    min-height: 280px;
+    transition: transform 0.65s cubic-bezier(0.16,1,0.3,1), filter 0.4s;
+    filter: saturate(0.93) brightness(0.97);
+  }
+  .artwork:hover img {
+    transform: scale(1.05); filter: saturate(1.1) brightness(1.02);
+  }
+  .artwork-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.1) 55%, transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.6rem;
+  }
+  .artwork-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.3em; color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .artwork-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    letter-spacing: 0.07em; color: var(--white); margin-bottom: 0.25rem;
+    transform: translateY(6px); transition: transform 0.4s ease;
+  }
+  .artwork:hover .artwork-title { transform: translateY(0); }
+  .artwork-size {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.15em;
+    color: rgba(244,239,230,0.5); text-transform: uppercase;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.4s 0.05s ease, transform 0.4s 0.05s ease;
+  }
+  .artwork:hover .artwork-size { opacity: 1; transform: translateY(0); }
+  .artwork-medium {
+    font-size: 0.82rem; font-style: italic;
+    color: rgba(244,239,230,0.45);
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.35s 0.08s ease, transform 0.35s 0.08s ease;
+  }
+  .artwork:hover .artwork-medium { opacity: 1; transform: translateY(0); }
+
+  /* ── PAINTINGS DETAIL ── */
+  #paintings { padding: 7rem 3rem; }
+  .paintings-head { margin-bottom: 4rem; }
+  .painting-entry {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4.5rem; padding: 4rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    align-items: center;
+  }
+  .painting-entry:last-child { border-bottom: none; }
+  .painting-entry.reverse .painting-img { order: 2; }
+  .painting-entry.reverse .painting-text { order: 1; }
+  .painting-img { position: relative; }
+  .painting-img img {
+    width: 100%; display: block;
+    transition: filter 0.4s;
+  }
+  .painting-img img:hover { filter: saturate(1.1) brightness(1.03); }
+  .painting-img-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(8,8,8,0.82);
+    padding: 0.8rem 1rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .pii-size {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.18em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .pii-medium {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.12em;
+    color: rgba(244,239,230,0.4); text-transform: uppercase;
+  }
+  .painting-num-bg {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem; line-height: 1;
+    color: rgba(201,168,76,0.07); margin-bottom: -1.5rem;
+    user-select: none;
+  }
+  .painting-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    letter-spacing: 0.06em; color: var(--white); margin-bottom: 0.5rem;
+  }
+  .painting-specs {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.2em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 1.4rem;
+  }
+  .painting-concept {
+    font-size: 1rem; line-height: 1.88;
+    color: rgba(244,239,230,0.68);
+  }
+
+  /* ── STATEMENT ── */
+  #statement {
+    padding: 7rem 3rem;
+    display: grid; grid-template-columns: 280px 1fr;
+    gap: 6rem; align-items: start;
+    background: linear-gradient(180deg, rgba(201,168,76,0.02) 0%, transparent 100%);
+  }
+  .stmt-sidebar { position: sticky; top: 80px; }
+  .stmt-sidebar .section-title { font-size: clamp(2rem, 3.5vw, 3.5rem); margin-bottom: 1rem; }
+  .theme-tag {
+    display: inline-block; padding: 0.4rem 0.9rem;
+    border: 1px solid var(--red); margin-bottom: 1.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.2em; color: var(--red); text-transform: uppercase;
+  }
+  .stmt-sidebar p {
+    font-size: 0.9rem; line-height: 1.7; color: rgba(244,239,230,0.45);
+  }
+  .stmt-quote {
+    font-size: clamp(1.15rem, 2vw, 1.7rem);
+    font-style: italic; font-weight: 300; line-height: 1.65;
+    color: var(--white); padding-left: 2rem;
+    border-left: 3px solid var(--gold); margin-bottom: 2.5rem;
+  }
+  .stmt-body {
+    font-size: 1.02rem; line-height: 1.95;
+    color: rgba(244,239,230,0.68);
+  }
+  .stmt-body p { margin-bottom: 1.4rem; }
+  .stmt-body p:last-child { margin-bottom: 0; }
+
+  /* ── ABOUT / ARTIST ── */
+  #about { padding: 7rem 3rem; }
+  .about-grid {
+    display: grid; grid-template-columns: 380px 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .about-photo-wrap { position: relative; }
+  .about-photo-wrap::before {
+    content: ''; position: absolute;
+    top: 16px; left: 16px; right: -16px; bottom: -16px;
+    border: 1px solid rgba(201,168,76,0.25); z-index: 0;
+  }
+  .about-photo-wrap img {
+    position: relative; z-index: 1;
+    width: 100%; display: block;
+  }
+  .about-photo-caption {
+    position: absolute; bottom: -32px; left: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.18em;
+    color: rgba(244,239,230,0.3); text-transform: uppercase;
+  }
+  .about-text .section-title { margin-bottom: 0.5rem; }
+  .about-sub {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: 0.2em; color: var(--red); margin-bottom: 1.8rem;
+  }
+  .about-bio {
+    font-size: 1.05rem; line-height: 1.9; font-style: italic; font-weight: 300;
+    color: rgba(244,239,230,0.72); margin-bottom: 2.5rem; max-width: 540px;
+  }
+  .info-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: var(--gold-dim);
+    border: 1px solid var(--gold-dim);
+  }
+  .info-item { background: var(--black); padding: 1.4rem 1.2rem; }
+  .info-key {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .info-val {
+    font-size: 0.95rem; line-height: 1.5; color: var(--white);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 7rem 3rem;
+    background: rgba(201,168,76,0.03);
+    border-top: 1px solid var(--gold-dim);
+  }
+  .contact-inner { max-width: 860px; margin: 0 auto; }
+  .contact-inner .section-title { font-size: clamp(2.5rem, 5vw, 5rem); }
+  .contact-intro {
+    font-size: 1.1rem; line-height: 1.8; font-style: italic;
+    color: rgba(244,239,230,0.6); margin-bottom: 3.5rem; max-width: 520px;
+  }
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(2,1fr); gap: 1px;
+    background: var(--gold-dim); border: 1px solid var(--gold-dim);
+    margin-bottom: 3rem;
+  }
+  .contact-item {
+    background: var(--black); padding: 2rem 1.8rem;
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    text-decoration: none;
+    transition: background 0.25s;
+  }
+  .contact-item:hover { background: rgba(201,168,76,0.06); }
+  .contact-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .contact-icon svg { width: 18px; height: 18px; fill: var(--gold); }
+  .contact-info {}
+  .contact-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem;
+  }
+  .contact-value {
+    font-size: 0.95rem; color: rgba(244,239,230,0.75); line-height: 1.5; word-break: break-all;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--gold-dim);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.22em; color: var(--gold);
+  }
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.15em;
+    color: rgba(244,239,230,0.25);
+  }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.93);
+    align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 90vw; max-height: 88vh;
+    object-fit: contain; display: block;
+    box-shadow: 0 0 80px rgba(0,0,0,0.8);
+  }
+  .lb-close {
+    position: absolute; top: 1.2rem; right: 1.8rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    color: rgba(244,239,230,0.6); background: none;
+    border: 1px solid rgba(244,239,230,0.2);
+    padding: 0.4rem 0.9rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lb-close:hover { color: var(--white); border-color: var(--white); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    #about .about-grid { grid-template-columns: 300px 1fr; gap: 3rem; }
+    #statement { grid-template-columns: 220px 1fr; gap: 4rem; }
+  }
+  @media (max-width: 860px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    #hero { grid-template-columns: 1fr; padding: 80px 1.5rem 3rem; gap: 3rem; }
+    .hero-visual { order: -1; }
+    .hero-photo-wrap { max-width: 340px; margin: 0 auto; }
+
+    #ruficent { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
+
+    #works { padding: 4rem 1.5rem; }
+    .gallery { grid-template-columns: 1fr; }
+    .artwork:first-child { grid-row: auto; }
+    .artwork img { min-height: 260px; }
+    /* always show overlay info on mobile */
+    .artwork-size, .artwork-medium { opacity: 1; transform: none; }
+
+    #paintings { padding: 4rem 1.5rem; }
+    .painting-entry { grid-template-columns: 1fr; gap: 2rem; }
+    .painting-entry.reverse .painting-img { order: 0; }
+    .painting-entry.reverse .painting-text { order: 0; }
+
+    #statement { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2.5rem; }
+    .stmt-sidebar { position: static; }
+
+    #about { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 4rem; }
+    .about-photo-wrap { max-width: 340px; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+
+    #contact { padding: 4rem 1.5rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 480px) {
+    .hero-stats { gap: 1.5rem; }
+    .info-grid { grid-template-columns: 1fr; }
+    .ruficent-breakdown { grid-template-columns: repeat(3,1fr); }
+    .tech-grid { grid-template-columns: 1fr; }
+    .pii-medium { display: none; }
+    .works-meta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="tri-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">RUFICENT</a>
+  <ul class="nav-links">
+    <li><a href="#works">Works</a></li>
+    <li><a href="#ruficent">Technique</a></li>
+    <li><a href="#paintings">Paintings</a></li>
+    <li><a href="#statement">Statement</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#works" onclick="closeMobileMenu()">Works</a>
+  <a href="#ruficent" onclick="closeMobileMenu()">Technique</a>
+  <a href="#paintings" onclick="closeMobileMenu()">Paintings</a>
+  <a href="#statement" onclick="closeMobileMenu()">Statement</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Geometric Abstract Art · Ghana</div>
+    <h1 class="hero-name">
+      Benjamin
+      <span>Gyimah</span>
+    </h1>
+    <div class="hero-technique">Inventor of Ruficent</div>
+    <p class="hero-bio">
+      My art is a manifestation on the way to success — exploring the pursuit of honour and achievement, creating pathways that serve as guidelines for both ourselves and the generations that follow.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="val">5</div>
+        <div class="lbl">Works · Season</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">6</div>
+        <div class="lbl">Years Active</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">GH</div>
+        <div class="lbl">Origin</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-photo-wrap">
+      <img src="benjamin_gyimah.jpg" alt="Benjamin Gyimah — Artist">
+      <div class="hero-photo-label">Benjamin Gyimah &nbsp;·&nbsp; Artist</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RUFICENT TECHNIQUE -->
+<section id="ruficent">
+  <div>
+    <div class="section-label">The Technique</div>
+    <h2 class="section-title">What is<br>Ruficent?</h2>
+    <div class="ruficent-def reveal">
+      <span class="def-word">RUFICENT</span>
+      <p>A geometric abstract technique built entirely from the right-angle triangle ruler — the set square — as the sole motif. Five carefully selected colours form one unified family, creating rhythm, identity, and visual power across every canvas.</p>
+    </div>
+    <div class="ruficent-breakdown reveal">
+      <div class="rb-item"><span class="rb-letters">RU</span><span class="rb-word">Ruler</span></div>
+      <div class="rb-item"><span class="rb-letters">FI</span><span class="rb-word">Five Colours</span></div>
+      <div class="rb-item"><span class="rb-letters">CENT</span><span class="rb-word">Century</span></div>
+    </div>
+    <p class="ruficent-text reveal">
+      God bless the century that welcomed us. Each colour family of five is chosen so they are complementary to another family — blue to red, warm to cool — echoing the idea of different peoples coming together as one unified whole.
+    </p>
+  </div>
+  <div class="tech-grid reveal">
+    <div class="tc"><h4>Repetition</h4><p>Recurrence of colour, shape and line. The triangle returns again and again, building visual rhythm across the entire canvas.</p></div>
+    <div class="tc"><h4>Rhythm</h4><p>Visual movement of elements in a repeated order — the eye travels continuously through fields of interlocking geometric form.</p></div>
+    <div class="tc"><h4>Colour Families</h4><p>Five colours form one family. Differences in family schemes separate objects and build how light plays on every figure.</p></div>
+    <div class="tc"><h4>Identity</h4><p>Rooted in Ghanaian visual culture — the Gye Nyame symbol, the drape of cloth — rendered inside the Ruficent language.</p></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- GALLERY -->
+<section id="works">
+  <div class="works-head reveal">
+    <div>
+      <div class="section-label">Selected Works</div>
+      <h2 class="section-title">Behind the River</h2>
+    </div>
+    <div class="works-meta">Season 2020 – 2026<br>Acrylic &amp; Oil on Canvas</div>
+  </div>
+  <div class="gallery">
+    <div class="artwork reveal" onclick="openLightbox('Emelia_than_woman.jpg')">
+      <img src="Emelia_than_woman.jpg" alt="Emelia Than Woman">
+      <div class="artwork-overlay">
+        <div class="artwork-num">02 / 05</div>
+        <div class="artwork-title">Emelia Than Woman</div>
+        <div class="artwork-size">Size: 70 × 40 in</div>
+        <div class="artwork-medium">Acrylic on Canvas · 2020</div>
+      </div>
+    </div>
+    <div class="artwork reveal" onclick="openLightbox('Bidie_ba_rooster.jpg')">
+      <img src="Bidie_ba_rooster.jpg" alt="Bidie Ba Rooster">
+      <div class="artwork-overlay">
+        <div class="artwork-num">04 / 05</div>
+        <div class="artwork-title">Bidie Ba Rooster</div>
+        <div class="artwork-size">Size: 63 × 49 in</div>
+        <div class="artwork-medium">Acrylic &amp; Oil on Canvas</div>
+      </div>
+    </div>
+    <div class="artwork reveal" onclick="openLightbox('latteh_prekese.jpg')">
+      <img src="latteh_prekese.jpg" alt="Latteh Prekese">
+      <div class="artwork-overlay">
+        <div class="artwork-num">05 / 05</div>
+        <div class="artwork-title">Latteh Prekese</div>
+        <div class="artwork-size">Size: 55 × 40 in</div>
+        <div class="artwork-medium">Acrylic &amp; Oil on Canvas</div>
+      </div>
+    </div>
+    <div class="artwork reveal" onclick="openLightbox('medicica.jpg')">
+      <img src="medicica.jpg" alt="Medicica Bag">
+      <div class="artwork-overlay">
+        <div class="artwork-num">01 / 05</div>
+        <div class="artwork-title">Medicica Bag</div>
+        <div class="artwork-size">Size: A3 (Quarter Imperial)</div>
+        <div class="artwork-medium">Acrylic on Canvas · 2023</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PAINTINGS IN DETAIL -->
+<section id="paintings">
+  <div class="paintings-head reveal">
+    <div class="section-label">Each Work</div>
+    <h2 class="section-title">The Paintings</h2>
+  </div>
+
+  <div class="painting-entry reveal">
+    <div class="painting-img">
+      <img src="medicica.jpg" alt="Medicica Bag" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <div class="painting-img-info">
+        <span class="pii-size">A3 (Quarter Imperial) · 2023</span>
+        <span class="pii-medium">Acrylic on Canvas</span>
+      </div>
+    </div>
+    <div class="painting-text">
+      <div class="painting-num-bg">01</div>
+      <div class="painting-title">Medicica Bag</div>
+      <div class="painting-specs">A3 (Quarter Imperial) &nbsp;·&nbsp; Acrylic on Canvas &nbsp;·&nbsp; 2023</div>
+      <p class="painting-concept">Born from a level 300 assignment where the lecturer granted freedom of colour and pattern. A crack in heaven — using the right-angle triangle from the set square with deliberate colour selection became the breakthrough. Medicica saved me from continuous trial and error, wasting time and energy searching for local and global recognition. My lecturer loved it. We moved on.</p>
+    </div>
+  </div>
+
+  <div class="painting-entry reverse reveal">
+    <div class="painting-img">
+      <img src="Emelia_than_woman.jpg" alt="Emelia Than Woman" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <div class="painting-img-info">
+        <span class="pii-size">70 × 40 in</span>
+        <span class="pii-medium">Acrylic on Canvas</span>
+      </div>
+    </div>
+    <div class="painting-text">
+      <div class="painting-num-bg">02</div>
+      <div class="painting-title">Emelia Than Woman</div>
+      <div class="painting-specs">70 × 40 in &nbsp;·&nbsp; Acrylic on Canvas &nbsp;·&nbsp; 2020</div>
+      <p class="painting-concept">She said: "This is the first time we are meeting as mother and son." She supported and sacrificed her strength to push me through the dark so I could see light. My educational support and protected pillar. The backbone of Ruficent. A woman of strong understanding in what it takes to support an artist in this country.</p>
+    </div>
+  </div>
+
+  <div class="painting-entry reveal">
+    <div class="painting-img">
+      <img src="Bidie_ba_rooster.jpg" alt="Bidie Ba Rooster" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <div class="painting-img-info">
+        <span class="pii-size">63 × 49 in</span>
+        <span class="pii-medium">Acrylic &amp; Oil on Canvas</span>
+      </div>
+    </div>
+    <div class="painting-text">
+      <div class="painting-num-bg">04</div>
+      <div class="painting-title">Bidie Ba Rooster</div>
+      <div class="painting-specs">63 × 49 in &nbsp;·&nbsp; Acrylic &amp; Oil on Canvas</div>
+      <p class="painting-concept">Silence is not agreement. We have to react to any oppressive condition we fall within. Proud Ghanaian identity: the Gye Nyame symbol, cloth draped on the shoulder, the Ruficent black background. Bold and courageous, still fighting through. We are small but not weak. This is the time the chicks begin to rooster.</p>
+    </div>
+  </div>
+
+  <div class="painting-entry reverse reveal">
+    <div class="painting-img">
+      <img src="latteh_prekese.jpg" alt="Latteh Prekese" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <div class="painting-img-info">
+        <span class="pii-size">55 × 40 in</span>
+        <span class="pii-medium">Acrylic &amp; Oil on Canvas</span>
+      </div>
+    </div>
+    <div class="painting-text">
+      <div class="painting-num-bg">05</div>
+      <div class="painting-title">Latteh Prekese</div>
+      <div class="painting-specs">55 × 40 in &nbsp;·&nbsp; Acrylic &amp; Oil on Canvas</div>
+      <p class="painting-concept">Knowing what will save you early and making it happen is always better than waiting for a solution to find you. Africa is a spiritual ground. This work shows how individuals value and receive information from different sources to strengthen themselves before it is too late — self-awareness as resilience, a spiritual practice made visible on canvas.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- STATEMENT -->
+<section id="statement">
+  <div class="stmt-sidebar reveal">
+    <div class="section-label">Artist Statement</div>
+    <h2 class="section-title">Philo&shy;sophy</h2>
+    <div class="theme-tag">Theme of the Year</div>
+    <p>Behind the River — a new open stage in the painting world, working towards local and global recognition by producing art that reflects those who reshape and strengthen the artistic journey.</p>
+  </div>
+  <div class="stmt-content reveal">
+    <blockquote class="stmt-quote">
+      "Winning has been a mystery since day one. We are always in this crime scene hoping and searching for salvation — we will show all the star gates, those good frictions from disagreement and open personalities that lead the way to our breakthrough."
+    </blockquote>
+    <div class="stmt-body">
+      <p>My art is a manifestation on the way to success — one that benefits contemporary young artists in the way someone like me survived and celebrates our breakthrough from local to global recognition. With a contemporary mindset rooted in the dedication of our inner abilities, I explore the pursuit of honour and achievement.</p>
+      <p>Each work becomes a reflection of resilience, the power of growth, and the legacy of human potential. Refreshing the mind back on the masters — Leonardo da Vinci perfecting form with dark tones; Vermeer's command of light; Picasso breaking forms into simple geometrics — all their effort helped the art world. I believe there is always the need to solve problems from recurring: new language in building identification, battle strategy, ways of identifying signs. This is what I call pushing the boundary of fear away.</p>
+      <p>My works turn to show those wonderful people, knowledgeable friends, unique cultural societies that are increasing our chances of winning. Creating a good and better place around us is the condition for development and creativity. The universe has laws of reformation — from imperfect to more perfect formation.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label reveal">The Artist</div>
+  <div class="about-grid">
+    <div class="about-photo-wrap reveal">
+      <img src="benjamin_gyimah.jpg" alt="Benjamin Gyimah">
+      <div class="about-photo-caption">Benjamin Gyimah · Accra, Ghana</div>
+    </div>
+    <div class="about-text reveal">
+      <h2 class="section-title">Benjamin<br>Gyimah</h2>
+      <div class="about-sub">Inventor of Ruficent</div>
+      <p class="about-bio">Ghanaian painter and inventor of the Ruficent geometric abstract technique — a method built on the right-angle triangle as sole motif, five-colour family systems, and the power of resilience made visible on canvas.</p>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-key">Technique</div>
+          <div class="info-val">Ruficent<br>Geometric Abstract</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">Medium</div>
+          <div class="info-val">Acrylic &amp; Oil<br>on Canvas</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">Work Sizes</div>
+          <div class="info-val">55×40 · 70×40<br>63×49 in</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">Active Season</div>
+          <div class="info-val">2020 – 2026</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">Origin</div>
+          <div class="info-val">Ghana, West Africa</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">Subject Matter</div>
+          <div class="info-val">Figurative · Portrait<br>Still Life · Landscape</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label reveal">Get in Touch</div>
+    <h2 class="section-title reveal">Contact</h2>
+    <p class="contact-intro reveal">Enquiries about works, exhibitions, commissions, or collaborations are welcome.</p>
+    <div class="contact-grid reveal">
+
+      <a class="contact-item" href="tel:+233557560605">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        </div>
+        <div class="contact-info">
+          <div class="contact-label">Phone / Call</div>
+          <div class="contact-value">+233 55 756 0605</div>
+        </div>
+      </a>
+
+      <a class="contact-item" href="mailto:livezion7@gmail.com">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div class="contact-info">
+          <div class="contact-label">Email</div>
+          <div class="contact-value">livezion7@gmail.com</div>
+        </div>
+      </a>
+
+      <a class="contact-item" href="https://www.instagram.com/zionring?igsh=YzljYTk1ODg3Zg==" target="_blank" rel="noopener">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        <div class="contact-info">
+          <div class="contact-label">Instagram</div>
+          <div class="contact-value">@zionring</div>
+        </div>
+      </a>
+
+      <a class="contact-item" href="https://www.tiktok.com/@zion_ring_?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        </div>
+        <div class="contact-info">
+          <div class="contact-label">TikTok</div>
+          <div class="contact-value">@zion_ring_</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Benjamin Gyimah &nbsp;·&nbsp; Ruficent</div>
+  <div class="footer-copy">© 2026 &nbsp;·&nbsp; All works reserved &nbsp;·&nbsp; Ghana, West Africa</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">ESC / CLOSE</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+/* ── Triangle canvas background ── */
+(function() {
+  const canvas = document.getElementById('tri-canvas');
+  const ctx = canvas.getContext('2d');
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; draw(); }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const size = 48;
+    const cols = Math.ceil(canvas.width / size) + 2;
+    const rows = Math.ceil(canvas.height / size) + 2;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x = c * size; const y = r * size;
+        const variant = (r * cols + c) % 4;
+        ctx.beginPath();
+        if (variant === 0) { ctx.moveTo(x+4, y+size-4); ctx.lineTo(x+size/2, y+4); ctx.lineTo(x+size-4, y+size-4); }
+        else if (variant === 1) { ctx.moveTo(x+4, y+4); ctx.lineTo(x+size-4, y+size/2); ctx.lineTo(x+4, y+size-4); }
+        else if (variant === 2) { ctx.moveTo(x+4, y+4); ctx.lineTo(x+size-4, y+4); ctx.lineTo(x+size/2, y+size-4); }
+        else { ctx.moveTo(x+size-4, y+4); ctx.lineTo(x+size-4, y+size-4); ctx.lineTo(x+4, y+size/2); }
+        ctx.strokeStyle = 'rgba(201,168,76,0.08)'; ctx.lineWidth = 0.8; ctx.stroke();
+      }
+    }
+  }
+  window.addEventListener('resize', resize); resize();
+})();
+
+/* ── Hamburger ── */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+
+/* ── Lightbox ── */
+function openLightbox(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+/* ── Scroll reveal ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+
+<script>
+/* ── IMAGE & CONTENT PROTECTION ── */
+// Disable right-click
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// Disable drag on images
+document.querySelectorAll && document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('img').forEach(img => {
+    img.setAttribute('draggable', 'false');
+    img.addEventListener('dragstart', e => e.preventDefault());
+  });
+});
+
+// Disable common keyboard shortcuts for saving/inspecting
+document.addEventListener('keydown', e => {
+  const blocked = (
+    (e.ctrlKey && ['s','u','a','p'].includes(e.key.toLowerCase())) ||
+    (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase())) ||
+    e.key === 'F12'
+  );
+  if (blocked) { e.preventDefault(); e.stopPropagation(); return false; }
+});
+
+// Disable text selection on artwork titles and key content
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.artwork-title, .painting-title, .hero-name').forEach(el => {
+    el.style.userSelect = 'none';
+    el.style.webkitUserSelect = 'none';
+  });
+});
+
+// Basic devtools deterrent
+(function devtoolsBlock() {
+  let devOpen = false;
+  const threshold = 160;
+  const check = () => {
+    if (window.outerWidth - window.innerWidth > threshold ||
+        window.outerHeight - window.innerHeight > threshold) {
+      if (!devOpen) { devOpen = true; document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#080808;color:#c9a84c;font-family:monospace;font-size:1rem;letter-spacing:0.2em;">© BENJAMIN GYIMAH · ALL RIGHTS RESERVED</div>'; }
+    } else { devOpen = false; }
+  };
+  setInterval(check, 1000);
+})();
+</script>
+
+</body>
+</html>
