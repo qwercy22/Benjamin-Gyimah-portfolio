@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -388,6 +388,23 @@
   }
   .stmt-body p { margin-bottom: 1.4rem; }
   .stmt-body p:last-child { margin-bottom: 0; }
+  .wezeh-list {
+    list-style: none; margin: 0 0 1.4rem 0; padding: 0;
+    border-left: 3px solid var(--gold);
+    background: rgba(201,168,76,0.04);
+  }
+  .wezeh-list li {
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    font-size: 0.98rem; line-height: 1.6;
+    color: rgba(244,239,230,0.68);
+  }
+  .wezeh-list li:last-child { border-bottom: none; }
+  .wezeh-list li strong {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); display: block; margin-bottom: 0.3rem;
+  }
 
   /* ── ABOUT / ARTIST ── */
   #about { padding: 7rem 3rem; }
@@ -711,11 +728,9 @@
     </h1>
     <div class="hero-technique">Inventor of Ruficent</div>
     <p class="hero-bio">
-      My art is a manifestation on the way to success — exploring the pursuit of honour and achievement, creating pathways that serve as guidelines for both ourselves and the generations that follow.
-    </p>
-    <div class="hero-stats">
+      I want to focus my art on searching for symbols, titles, behavioural capabilities and forms that carry the answers that have increased your chances of winning.
       <div class="hero-stat">
-        <div class="val">5</div>
+        <div class="val">6</div>
         <div class="lbl">Works · Season</div>
       </div>
       <div class="hero-stat">
@@ -776,19 +791,37 @@
     <div class="works-meta">Season 2020 – 2026<br>Acrylic &amp; Oil on Canvas</div>
   </div>
   <div class="gallery">
+    <div class="artwork reveal" onclick="openLightbox('medicica.jpg')">
+      <img src="medicica.jpg" alt="Medicica Bag">
+      <div class="artwork-overlay">
+        <div class="artwork-num">01 / 06</div>
+        <div class="artwork-title">Medicica Bag</div>
+        <div class="artwork-size">Size: A3 (Quarter Imperial)</div>
+        <div class="artwork-medium">Acrylic on Canvas · 2023</div>
+      </div>
+    </div>
     <div class="artwork reveal" onclick="openLightbox('Emelia_than_woman.jpg')">
       <img src="Emelia_than_woman.jpg" alt="Emelia Than Woman">
       <div class="artwork-overlay">
-        <div class="artwork-num">02 / 05</div>
+        <div class="artwork-num">02 / 06</div>
         <div class="artwork-title">Emelia Than Woman</div>
         <div class="artwork-size">Size: 70 × 40 in</div>
         <div class="artwork-medium">Acrylic on Canvas · 2020</div>
       </div>
     </div>
+    <div class="artwork reveal" onclick="openLightbox('akameho.jpg')">
+      <img src="akameho.jpg" alt="Akameho — Doctor's Have Tried">
+      <div class="artwork-overlay">
+        <div class="artwork-num">03 / 06</div>
+        <div class="artwork-title">Akameho</div>
+        <div class="artwork-size">Size: 70 × 40 in</div>
+        <div class="artwork-medium">Acrylic &amp; Oil on Canvas</div>
+      </div>
+    </div>
     <div class="artwork reveal" onclick="openLightbox('Bidie_ba_rooster.jpg')">
       <img src="Bidie_ba_rooster.jpg" alt="Bidie Ba Rooster">
       <div class="artwork-overlay">
-        <div class="artwork-num">04 / 05</div>
+        <div class="artwork-num">04 / 06</div>
         <div class="artwork-title">Bidie Ba Rooster</div>
         <div class="artwork-size">Size: 63 × 49 in</div>
         <div class="artwork-medium">Acrylic &amp; Oil on Canvas</div>
@@ -797,19 +830,19 @@
     <div class="artwork reveal" onclick="openLightbox('latteh_prekese.jpg')">
       <img src="latteh_prekese.jpg" alt="Latteh Prekese">
       <div class="artwork-overlay">
-        <div class="artwork-num">05 / 05</div>
+        <div class="artwork-num">05 / 06</div>
         <div class="artwork-title">Latteh Prekese</div>
-        <div class="artwork-size">Size: 55 × 40 in</div>
+        <div class="artwork-size">Size: 65 × 52 in</div>
         <div class="artwork-medium">Acrylic &amp; Oil on Canvas</div>
       </div>
     </div>
-    <div class="artwork reveal" onclick="openLightbox('medicica.jpg')">
-      <img src="medicica.jpg" alt="Medicica Bag">
+    <div class="artwork reveal" onclick="openLightbox('no_one_will_fight_our_battles.jpg')">
+      <img src="no_one_will_fight_our_battles.jpg" alt="No One Will Fight Our Battle">
       <div class="artwork-overlay">
-        <div class="artwork-num">01 / 05</div>
-        <div class="artwork-title">Medicica Bag</div>
-        <div class="artwork-size">Size: A3 (Quarter Imperial)</div>
-        <div class="artwork-medium">Acrylic on Canvas · 2023</div>
+        <div class="artwork-num">06 / 06</div>
+        <div class="artwork-title">No One Will Fight Our Battle</div>
+        <div class="artwork-size">Size: 8 × 6 ft</div>
+        <div class="artwork-medium">Acrylic &amp; Oil on Canvas · 2026</div>
       </div>
     </div>
   </div>
@@ -858,6 +891,22 @@
 
   <div class="painting-entry reveal">
     <div class="painting-img">
+      <img src="akameho.jpg" alt="Akameho — Doctor's Have Tried" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <div class="painting-img-info">
+        <span class="pii-size">70 × 40 in</span>
+        <span class="pii-medium">Acrylic &amp; Oil on Canvas</span>
+      </div>
+    </div>
+    <div class="painting-text">
+      <div class="painting-num-bg">03</div>
+      <div class="painting-title">Akameho</div>
+      <div class="painting-specs">70 × 40 in &nbsp;·&nbsp; Acrylic &amp; Oil on Canvas</div>
+      <p class="painting-concept">Doctors have tried. Engineers have tried. Billionaires have tried. If it sounds easy, you're doing it wrong — the discouragement was louder than the pressure itself, loved ones calling the brush a punishment for some unnamed karma. I channelled that noise onto the canvas instead of letting it win. Our ancestors faced this same disgrace and stayed anyway; be bold enough to turn it into an answer that educates the ones who doubted you.</p>
+    </div>
+  </div>
+
+  <div class="painting-entry reveal">
+    <div class="painting-img">
       <img src="Bidie_ba_rooster.jpg" alt="Bidie Ba Rooster" onclick="openLightbox(this.src)" style="cursor:pointer">
       <div class="painting-img-info">
         <span class="pii-size">63 × 49 in</span>
@@ -876,15 +925,31 @@
     <div class="painting-img">
       <img src="latteh_prekese.jpg" alt="Latteh Prekese" onclick="openLightbox(this.src)" style="cursor:pointer">
       <div class="painting-img-info">
-        <span class="pii-size">55 × 40 in</span>
+        <span class="pii-size">65 × 52 in</span>
         <span class="pii-medium">Acrylic &amp; Oil on Canvas</span>
       </div>
     </div>
     <div class="painting-text">
       <div class="painting-num-bg">05</div>
       <div class="painting-title">Latteh Prekese</div>
-      <div class="painting-specs">55 × 40 in &nbsp;·&nbsp; Acrylic &amp; Oil on Canvas</div>
+      <div class="painting-specs">65 × 52 in &nbsp;·&nbsp; Acrylic &amp; Oil on Canvas</div>
       <p class="painting-concept">Knowing what will save you early and making it happen is always better than waiting for a solution to find you. Africa is a spiritual ground. This work shows how individuals value and receive information from different sources to strengthen themselves before it is too late — self-awareness as resilience, a spiritual practice made visible on canvas.</p>
+    </div>
+  </div>
+
+  <div class="painting-entry reveal">
+    <div class="painting-img">
+      <img src="no_one_will_fight_our_battles.jpg" alt="No One Will Fight Our Battle" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <div class="painting-img-info">
+        <span class="pii-size">8 × 6 ft</span>
+        <span class="pii-medium">Acrylic &amp; Oil on Canvas</span>
+      </div>
+    </div>
+    <div class="painting-text">
+      <div class="painting-num-bg">06</div>
+      <div class="painting-title">No One Will Fight Our Battle</div>
+      <div class="painting-specs">8 × 6 ft &nbsp;·&nbsp; Acrylic &amp; Oil on Canvas &nbsp;·&nbsp; 2026</div>
+      <p class="painting-concept">A shift from one pattern to another. Before this, survival rested on parents and guardians — now that the degree is earned, it's time to stand firm and fight for our own health, recognition, and freedom. Painted to show a readiness to face what's outside, avoiding the traps, gathering every resource to battle and win. As a Black painter, this is what it looks like to show your true identity, honour the culture, and refuse to wait for a saviour.</p>
     </div>
   </div>
 </section>
@@ -904,9 +969,25 @@
       "Winning has been a mystery since day one. We are always in this crime scene hoping and searching for salvation — we will show all the star gates, those good frictions from disagreement and open personalities that lead the way to our breakthrough."
     </blockquote>
     <div class="stmt-body">
-      <p>My art is a manifestation on the way to success — one that benefits contemporary young artists in the way someone like me survived and celebrates our breakthrough from local to global recognition. With a contemporary mindset rooted in the dedication of our inner abilities, I explore the pursuit of honour and achievement.</p>
-      <p>Each work becomes a reflection of resilience, the power of growth, and the legacy of human potential. Refreshing the mind back on the masters — Leonardo da Vinci perfecting form with dark tones; Vermeer's command of light; Picasso breaking forms into simple geometrics — all their effort helped the art world. I believe there is always the need to solve problems from recurring: new language in building identification, battle strategy, ways of identifying signs. This is what I call pushing the boundary of fear away.</p>
-      <p>My works turn to show those wonderful people, knowledgeable friends, unique cultural societies that are increasing our chances of winning. Creating a good and better place around us is the condition for development and creativity. The universe has laws of reformation — from imperfect to more perfect formation.</p>
+      <p>My art is a manifestation on the way to success. This idea matters to me because it answers my prayer. It relieves me from stress, satisfies and supports my journey. It becomes my breakeven point. It creates justice to the wicked either inside my own psychology or social influence. A way of learning new things to battle our indiscipline behaviour, I like to share mine with others through my paintings and ideas that celebrate how we became victorious.</p>
+
+      <p>My underlying practice is building my mindset to have a positive influence within our community and among ourselves. I can learn so much from others, as others will learn from me mostly through my paintings, traits like;</p>
+
+      <ul class="wezeh-list">
+        <li><strong>Wezeh</strong>Create memories that mark the path from unlucky to lucky.</li>
+        <li><strong>Discipline</strong>Acquire disciplined movement from people, and put it into practice.</li>
+        <li><strong>Connection</strong>Build relationships with people and ideas that help our growth.</li>
+        <li><strong>Awareness</strong>Learn to recognise opportunities and avoid traps.</li>
+        <li><strong>Growth</strong>Let the findings show real progress in winning.</li>
+      </ul>
+
+      <p>Observing our struggles, our hopes, give them a language; how does a person increase their chances of living a meaningful and fortunate life without losing themselves? My paintings remind us that, moving forward, even before success arrives, we should honour some individuals or some ideas that have increased our chances of winning.</p>
+
+      <p>The set square carries the whole philosophy in a single instrument: six straight edges, a perfect triangle outside and a smaller one within, angles of 30°, 60°, and 90°. As fragile as it looks, it holds real capability — and it must be handled well to produce a good outcome. I believe we are the same. To be useful, we have to manage our own knowledge, minds, and psychology with the same care. Displayed across the canvas, pointing in every direction, the triangle becomes a map of the possibilities open to anyone willing to increase their chances of winning.</p>
+
+      <p>Colour works the same way. Five hues are chosen to form a single family — blue paired against red, warm against cool — so that different palettes read as distinct voices coming together as one. It's the same idea behind the name: <strong>RU</strong> from Ruler, <strong>FI</strong> from the five-colour family, <strong>CENT</strong> from century. Ruficent — God bless the century that welcomed us.</p>
+
+      <p>Behind every canvas is a debt to the people who made the path possible — teachers, lecturers, doctors, pastors, chiefs, and the quietly intelligent people who show up for you before you know to ask. Everyone dreams of a good leader, but a good leader is one you train yourself to become: setting an example when things get difficult, leaving something worth remembering behind. That's the inheritance I want to build — for my community, and for the next generation of artists coming up behind me.</p>
     </div>
   </div>
 </section>
@@ -936,7 +1017,7 @@
         </div>
         <div class="info-item">
           <div class="info-key">Work Sizes</div>
-          <div class="info-val">55×40 · 70×40<br>63×49 in</div>
+          <div class="info-val">A3 · 55×40 · 70×40<br>63×49 in · 8×6 ft</div>
         </div>
         <div class="info-item">
           <div class="info-key">Active Season</div>
