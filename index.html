@@ -248,17 +248,16 @@
   }
   .gallery {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 3px;
   }
   .artwork {
     position: relative; overflow: hidden;
     background: #111; cursor: pointer;
+    aspect-ratio: 3 / 4;
   }
-  .artwork:first-child { grid-row: span 2; }
   .artwork img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    min-height: 280px;
+    width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block;
     transition: transform 0.65s cubic-bezier(0.16,1,0.3,1), filter 0.4s;
     filter: saturate(0.93) brightness(0.97);
   }
@@ -315,12 +314,18 @@
   .painting-entry:last-child { border-bottom: none; }
   .painting-entry.reverse .painting-img { order: 2; }
   .painting-entry.reverse .painting-text { order: 1; }
-  .painting-img { position: relative; }
-  .painting-img img {
-    width: 100%; display: block;
-    transition: filter 0.4s;
+  .painting-img {
+    position: relative;
+    height: 620px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    border: 1px solid rgba(201,168,76,0.12);
   }
-  .painting-img img:hover { filter: saturate(1.1) brightness(1.03); }
+  .painting-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: filter 0.4s, transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+  .painting-img img:hover { filter: saturate(1.1) brightness(1.03); transform: scale(1.02); }
   .painting-img-info {
     position: absolute; bottom: 0; left: 0; right: 0;
     background: rgba(8,8,8,0.82);
@@ -549,6 +554,8 @@
   @media (max-width: 1100px) {
     .about-grid { grid-template-columns: 300px 1fr; gap: 3rem; }
     #statement { grid-template-columns: 220px 1fr; gap: 4rem; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .painting-img { height: 480px; }
   }
   @media (max-width: 860px) {
     nav { padding: 0 1.5rem; }
@@ -564,11 +571,11 @@
 
     #works { padding: 3rem 1.2rem; }
     .gallery { grid-template-columns: 1fr; }
-    .artwork:first-child { grid-row: auto; }
-    .artwork img { min-height: 300px; max-height: 420px; object-fit: cover; }
+    .artwork { aspect-ratio: 4 / 5; }
 
     #paintings { padding: 3rem 1.2rem; }
     .painting-entry { grid-template-columns: 1fr; gap: 0.8rem; padding: 1.8rem 0; }
+    .painting-img { height: 380px; }
     .painting-entry.reverse .painting-img { order: 0; }
     .painting-entry.reverse .painting-text { order: 0; }
     .painting-text { padding: 0 0.2rem; }
@@ -612,6 +619,7 @@
     #paintings { padding: 3rem 1.2rem; }
     .paintings-head { margin-bottom: 1.5rem; }
     .painting-entry { gap: 0.8rem; padding: 1.8rem 0; }
+    .painting-img { height: 300px; }
     .painting-img-info { padding: 0.6rem 0.8rem; }
     .pii-medium { display: none; }
     .pii-size { font-size: 0.52rem; }
@@ -728,7 +736,7 @@
     </h1>
     <div class="hero-technique">Inventor of Ruficent</div>
     <p class="hero-bio">
-      I want to focus my art on searching for symbols, titles, behavioural capabilities and forms that carry the answers that have increased your chances of winning.
+      My art is a manifestation on the way to success — exploring the pursuit of honour and achievement, creating pathways that serve as guidelines for both ourselves and the generations that follow.
     </p>
     <div class="hero-stats">
       <div class="hero-stat">
@@ -794,7 +802,7 @@
   </div>
   <div class="gallery">
     <div class="artwork reveal" onclick="openLightbox('medicica.jpg')">
-      <img src="medicica.jpg" alt="Medicica Bag">
+      <img src="medicica.jpg" alt="Medicica Bag" style="object-position: 50% 50%;">
       <div class="artwork-overlay">
         <div class="artwork-num">01 / 06</div>
         <div class="artwork-title">Medicica Bag</div>
@@ -834,12 +842,12 @@
       <div class="artwork-overlay">
         <div class="artwork-num">05 / 06</div>
         <div class="artwork-title">Latteh Prekese</div>
-        <div class="artwork-size">Size: 55 × 40 in</div>
+        <div class="artwork-size">Size: 65 × 42 in</div>
         <div class="artwork-medium">Acrylic &amp; Oil on Canvas</div>
       </div>
     </div>
     <div class="artwork reveal" onclick="openLightbox('no_one_will_fight_our_battles.jpg')">
-      <img src="no_one_will_fight_our_battles.jpg" alt="No One Will Fight Our Battle">
+      <img src="no_one_will_fight_our_battles.jpg" alt="No One Will Fight Our Battle" style="object-position: 50% 35%;">
       <div class="artwork-overlay">
         <div class="artwork-num">06 / 06</div>
         <div class="artwork-title">No One Will Fight Our Battle</div>
@@ -861,7 +869,7 @@
 
   <div class="painting-entry reveal">
     <div class="painting-img">
-      <img src="medicica.jpg" alt="Medicica Bag" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <img src="medicica.jpg" alt="Medicica Bag" onclick="openLightbox(this.src)" style="cursor:pointer; object-position: 50% 50%;">
       <div class="painting-img-info">
         <span class="pii-size">A3 (Quarter Imperial) · 2023</span>
         <span class="pii-medium">Acrylic on Canvas</span>
@@ -877,7 +885,7 @@
 
   <div class="painting-entry reverse reveal">
     <div class="painting-img">
-      <img src="Emelia_than_woman.jpg" alt="Emelia Than Woman" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <img src="Emelia_than_woman.jpg" alt="Emelia Than Woman" onclick="openLightbox(this.src)" style="cursor:pointer; object-position: 50% 35%;">
       <div class="painting-img-info">
         <span class="pii-size">70 × 40 in</span>
         <span class="pii-medium">Acrylic on Canvas</span>
@@ -893,7 +901,7 @@
 
   <div class="painting-entry reveal">
     <div class="painting-img">
-      <img src="akameho.jpg" alt="Akameho — Doctor's Have Tried" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <img src="akameho.jpg" alt="Akameho — Doctor's Have Tried" onclick="openLightbox(this.src)" style="cursor:pointer; object-position: 50% 15%;">
       <div class="painting-img-info">
         <span class="pii-size">70 × 40 in</span>
         <span class="pii-medium">Acrylic &amp; Oil on Canvas</span>
@@ -907,9 +915,9 @@
     </div>
   </div>
 
-  <div class="painting-entry reveal">
+  <div class="painting-entry reverse reveal">
     <div class="painting-img">
-      <img src="Bidie_ba_rooster.jpg" alt="Bidie Ba Rooster" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <img src="Bidie_ba_rooster.jpg" alt="Bidie Ba Rooster" onclick="openLightbox(this.src)" style="cursor:pointer; object-position: 50% 20%;">
       <div class="painting-img-info">
         <span class="pii-size">63 × 49 in</span>
         <span class="pii-medium">Acrylic &amp; Oil on Canvas</span>
@@ -923,9 +931,9 @@
     </div>
   </div>
 
-  <div class="painting-entry reverse reveal">
+  <div class="painting-entry reveal">
     <div class="painting-img">
-      <img src="latteh_prekese.jpg" alt="Latteh Prekese" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <img src="latteh_prekese.jpg" alt="Latteh Prekese" onclick="openLightbox(this.src)" style="cursor:pointer; object-position: 50% 30%;">
       <div class="painting-img-info">
         <span class="pii-size">65 × 42 in</span>
         <span class="pii-medium">Acrylic &amp; Oil on Canvas</span>
@@ -939,9 +947,9 @@
     </div>
   </div>
 
-  <div class="painting-entry reveal">
+  <div class="painting-entry reverse reveal">
     <div class="painting-img">
-      <img src="no_one_will_fight_our_battles.jpg" alt="No One Will Fight Our Battle" onclick="openLightbox(this.src)" style="cursor:pointer">
+      <img src="no_one_will_fight_our_battles.jpg" alt="No One Will Fight Our Battle" onclick="openLightbox(this.src)" style="cursor:pointer; object-position: 50% 20%;">
       <div class="painting-img-info">
         <span class="pii-size">8 × 6 ft</span>
         <span class="pii-medium">Acrylic &amp; Oil on Canvas</span>
@@ -971,10 +979,15 @@
       "Winning has been a mystery since day one. We are always in this crime scene hoping and searching for salvation — we will show all the star gates, those good frictions from disagreement and open personalities that lead the way to our breakthrough."
     </blockquote>
     <div class="stmt-body">
-      <p>My art is a manifestation on the way to success. This idea matters to me because it answers my prayer. It relieves me from stress, satisfies and supports my journey. It becomes my breakeven point. It creates justice to the wicked either inside my own psychology or social influence. A way of learning new things to battle our indiscipline behaviour, I like to share mine with others through my paintings and ideas that celebrate how we became victorious.</p>
+      <p>My art is a manifestation on the way to success — one that benefits contemporary young artists in the way someone like me survived and celebrates our breakthrough from local to global recognition. With a contemporary mindset rooted in the dedication of our inner abilities, I explore the pursuit of honour and achievement.</p>
+      <p>Each work becomes a reflection of resilience, the power of growth, and the legacy of human potential. Refreshing the mind back on the masters — Leonardo da Vinci perfecting form with dark tones; Vermeer's command of light; Picasso breaking forms into simple geometrics — all their effort helped the art world. I believe there is always the need to solve problems from recurring: new language in building identification, battle strategy, ways of identifying signs. This is what I call pushing the boundary of fear away.</p>
+      <p>My works turn to show those wonderful people, knowledgeable friends, unique cultural societies that are increasing our chances of winning. Creating a good and better place around us is the condition for development and creativity. The universe has laws of reformation — from imperfect to more perfect formation.</p>
 
+      <p>This series explores what pulls us back to the right path — the gift and principles of nature, God, or the universe that we stay connected to in order to make a dream come true. I call the journey from unlucky to lucky <em>Wezeh</em>. It shapes our focus, reminds us of our positive influence, and lays a foundation that our descendants can follow when we are no longer here to explain it ourselves.</p>
 
-      <p>My underlying practice is building my mindset to have a positive influence within our community and among ourselves. I can learn so much from others, as others will learn from me mostly through my paintings, traits like;</p>
+      <p>My focus is searching for the symbols, titles, behaviours, and forms that carry the answers that have increased my chances of winning. This matters to me because it answers prayer, it relieves stress, and when an answer satisfies me and supports my journey, it becomes my breakeven point. It creates justice against the wicked — whether that wickedness sits inside my own psychology or comes from social influence — and it's a way of learning new things to battle indiscipline, ideas I love sharing with others through the work: what it looks like to become victorious.</p>
+
+      <p>Our underlying practice is building a mindset that carries a positive influence within our community and among ourselves. I learn as much from others as they learn from me, mostly through the paintings — traits like these:</p>
 
       <ul class="wezeh-list">
         <li><strong>Wezeh</strong>Create memories that mark the path from unlucky to lucky.</li>
@@ -1020,7 +1033,7 @@
         </div>
         <div class="info-item">
           <div class="info-key">Work Sizes</div>
-          <div class="info-val">A3 · 55×40 · 70×40<br>63×49 in · 8×6 ft</div>
+          <div class="info-val">A3 · 65×42 · 70×40<br>63×49 in · 8×6 ft</div>
         </div>
         <div class="info-item">
           <div class="info-key">Active Season</div>
