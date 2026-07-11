@@ -410,14 +410,24 @@
   .stmt-section { margin-bottom: 3.2rem; }
   .stmt-section:last-child { margin-bottom: 0; }
   .stmt-subhead {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.62rem; letter-spacing: 0.32em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 1.1rem;
-    display: flex; align-items: center; gap: 0.7rem;
+    display: flex; align-items: baseline; gap: 1.1rem;
+    margin-bottom: 1.3rem;
   }
-  .stmt-subhead::before {
-    content: ''; display: inline-block;
-    width: 1.4rem; height: 1px; background: var(--gold);
+  .stmt-subhead .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: 0.05em;
+    color: rgba(201,168,76,0.35);
+  }
+  .stmt-subhead .label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--gold);
+    position: relative; padding-bottom: 0.5rem;
+  }
+  .stmt-subhead .label::after {
+    content: ''; position: absolute; left: 0; bottom: 0;
+    width: 2.4rem; height: 2px; background: var(--red);
   }
   .wezeh-list {
     list-style: none; margin: 0 0 1.4rem 0; padding: 0;
@@ -1021,7 +1031,7 @@
     <div class="stmt-body">
 
       <div class="stmt-section" id="stmt-concept">
-        <div class="stmt-subhead">Concept</div>
+        <div class="stmt-subhead"><span class="num">01</span><span class="label">Concept</span></div>
         <p>This series explores what motivates us to return to the right path — shaping our focus, reminding us of our positive influence, and building toward our future through the gift and principles of appreciating nature, God's gift from the universe, which we follow and remain connected to in order to achieve blessing and make a dream come true. I call the journey from unlucky to lucky <em>Wezeh</em>.</p>
         <p>I've chosen to follow this connection to the path that has given me freedom, acceptance, and guidance, and kept me from the punishment that follows when we deny our good path for another. My work highlights our successes as people with culture, and the dangers we've faced — the things that unite us, protect us, and carry a positive impact I love sharing with others.</p>
         <p>The work also explores what this same journey looks like for my contemporaries — praise for those who helped us, self-motivation, foresight, and the problems we're working to overcome. If our descendants are given the same path and gift, I want to leave a good foundation for them: a footprint that welcomes the future and offers solutions once we're no longer here to explain it ourselves. It's also a way of steering people away from chaos and bondage, away from the kind of influence that leads to captivity and defeat.</p>
@@ -1030,7 +1040,7 @@
       </div>
 
       <div class="stmt-section" id="stmt-philosophy">
-        <div class="stmt-subhead">Philosophy</div>
+        <div class="stmt-subhead"><span class="num">02</span><span class="label">Philosophy</span></div>
         <p>My focus is searching for the symbols, titles, behaviours, and forms that carry the answers that have increased my chances of winning. This matters to me because it answers prayer, it relieves stress, and when an answer satisfies me and supports my journey, it becomes my breakeven point. It creates justice against the wicked — whether that wickedness sits inside my own psychology or comes from social influence — and it's a way of learning new things to battle indiscipline, ideas I love sharing with others through the work: what it looks like to become victorious.</p>
 
         <p>I spend my life preaching the qualities we cherish most — the things we have to stand strong to protect, advance, and nurture in the next generation. These are our weapons of survival: our traditions, our natural resources, education, health, entertainment, social life, and more. Things that unite us, protect us, and carry a positive impact I love sharing with others through the work. When a painting reminds my people that these are our weapons, we hold them close instead of letting them slip away — protecting them, building more of them, because they have increased our chances of winning from untold centuries to today. We can't accept defeat, so we turn the very resources that have carried us this far into something visible.</p>
@@ -1053,49 +1063,49 @@
       </div>
 
       <div class="stmt-section" id="stmt-inspiration">
-        <div class="stmt-subhead">Inspiration</div>
+        <div class="stmt-subhead"><span class="num">03</span><span class="label">Inspiration</span></div>
         <p>What's the value of a certificate when others have none — knowing how things work, putting that knowledge into practice, after devoting so much time, so many resources, so many sacrifices to get there? My parents always believed I'd rise into that kind of responsibility; they spent what they had putting me on a good path, hoping I'd become resourceful enough to help solve problems before they even arrived. Everything I've learned — from teachers, lecturers, doctors, pastors, chiefs, and quietly intelligent people who show up before you know to ask — comes back to the same idea: everyone dreams of a good leader, but a good leader is one you train yourself to become, setting an example when things get difficult, leaving something worth remembering behind.</p>
         <p>I keep coming back to the masters — Picasso most of all, for his courage in breaking the human figure down into its simplest geometric shapes and showing it exactly as he wanted it seen, the same instinct behind his African-mask-inflected faces. Vermeer taught me something quieter: patience with light. Working through an age when materials were scarce, he still left behind some thirty paintings that hold their glow to this day — proof that limitation isn't defeat, only a different discipline. Learning from both of them is what pushed me toward my own mark: figures reduced to their simplest geometry, built from the same right-angle triangle that carries the whole Ruficent language, with light moving between positive and negative space and the shade of every colour doing as much psychological work as the subject itself.</p>
         <p>I want to keep building resources, push my trade forward, explore more, and defend my name as an artist — leaving a better footprint for my community and the world. The people who've supported me from day one have shown me that good influence plays a real role in building a better future, and that's the influence I want to keep passing on.</p>
       </div>
 
       <div class="stmt-section" id="stmt-technical-quality">
-        <div class="stmt-subhead">Technical Quality</div>
+        <div class="stmt-subhead"><span class="num">04</span><span class="label">Technical Quality</span></div>
         <p>Two ideas anchor everything technically: repetition — the recurrence of colour, shape, and line throughout a piece — and rhythm, the visual movement those repeated elements create as the eye travels across the canvas.</p>
       </div>
 
       <div class="stmt-section" id="stmt-eventry">
-        <div class="stmt-subhead">Eventry</div>
+        <div class="stmt-subhead"><span class="num">05</span><span class="label">Eventry</span></div>
         <p>The right-angle triangle from the set square is the one tool that runs through the entire working process. Five colours are arranged into a single family — blue, red, green, or black — so the blend reads as unified at a glance, more so than it would across different colour families. Differences between colour families are what separate one object from another, or create the effect of light falling across a figure. Even the smallest details — the eyes, nose, lips — are pushed to stand out and carry the visual weight of the work.</p>
       </div>
 
       <div class="stmt-section" id="stmt-subject-matter">
-        <div class="stmt-subhead">Subject Matter</div>
+        <div class="stmt-subhead"><span class="num">06</span><span class="label">Subject Matter</span></div>
         <p>At the centre of it all is the hero of change — resilience, self-motivation, ideas built to inspire the contemporary artistic journey.</p>
       </div>
 
       <div class="stmt-section" id="stmt-content-sec">
-        <div class="stmt-subhead">Content</div>
+        <div class="stmt-subhead"><span class="num">07</span><span class="label">Content</span></div>
         <p>I'm always looking to develop new painting techniques, to bring more playfulness into the artistic world and more wind into shaping the future of our existence — I believe good intentions attract good solutions. And underneath all of it is identity: not forgetting who we are as Africans and art lovers, the role we've played in history, and what we're passing down to the next generation, in painting and in every other field.</p>
       </div>
 
       <div class="stmt-section" id="stmt-interpretation">
-        <div class="stmt-subhead">Interpretation</div>
+        <div class="stmt-subhead"><span class="num">08</span><span class="label">Interpretation</span></div>
         <p>For me, interpretation lives in duality — leaning on good fortune and real resources to counter what pulls people toward misfortune, choosing to think outside the box and find other ways forward. It's about opening more room for the next generation to play, write, and educate themselves — a life dedicated to showing what it means to grow more intelligent, and to designing ideas useful enough to help us stand strong in painting history, and beyond it. That's what I've dedicated my life to highlighting.</p>
       </div>
 
       <div class="stmt-section" id="stmt-subjective">
-        <div class="stmt-subhead">Subjective</div>
+        <div class="stmt-subhead"><span class="num">09</span><span class="label">Subjective</span></div>
         <p>My focus stays on figurative portraiture — human and animal — alongside still life and landscape.</p>
       </div>
 
       <div class="stmt-section" id="stmt-relevance">
-        <div class="stmt-subhead">Relevance</div>
+        <div class="stmt-subhead"><span class="num">10</span><span class="label">Relevance</span></div>
         <p>As citizens of this planet, we all carry unique identities and motives to help build a better future for ourselves and the next generation. My focus is on crystallising the good moments, the good people who helped us, and the prayers and intentions worth sharing.</p>
       </div>
 
       <div class="stmt-section" id="stmt-works-produced">
-        <div class="stmt-subhead">Works Produced &middot; First Discovery, 2020–2026</div>
+        <div class="stmt-subhead"><span class="num">11</span><span class="label">Works Produced &middot; First Discovery, 2020–2026</span></div>
         <p>Behind the River is the theme of this season — a new open stage in the painting world, working toward local and global recognition by producing work that reflects the people who helped reshape and strengthen my mindset and my journey, and finding a way to represent them honestly in the work. Five paintings were produced under this theme between 2020 and 2026, and I'm looking forward to dedicating more time to the ideas that fall within its scope.</p>
       </div>
 
